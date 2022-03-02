@@ -1,13 +1,13 @@
 html {
   font-family: sans-serif;
-  background: #eee;
+  background: lightgreen;
   padding: 1rem;
 }
 
 body {
   max-width: 960px;
   margin: 0 auto;
-  background: white;
+  background: beige;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -26,7 +26,7 @@ hr {
 }
 
 nav {
-  background: lightgray;
+  background: lightblue;
   display: flex;
   align-items: center;
   padding: 0 0.5rem;
@@ -59,7 +59,7 @@ nav ul li a, nav ul li span, header .action {
 }
 
 .content > header {
-  border-bottom: 1px solid lightgray;
+  border-bottom: 3px solid lightgray;
   display: flex;
   align-items: flex-end;
 }
