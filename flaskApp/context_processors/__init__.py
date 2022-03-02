@@ -2,7 +2,7 @@ from os import getenv
 import datetime
 
 def utility_text_processors():
-    message = "hello world"
+    message = "Year: 2022"
 
     def deployment_environment():
         return getenv('FLASK_ENV', None)
