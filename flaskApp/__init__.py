@@ -1,8 +1,10 @@
 import os
+
 from flask import Flask
 
 from flaskApp import db, auth, blog, simple_pages
 from flaskApp.context_processors import utility_text_processors
+from flask_bootstrap import Bootstrap5
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
@@ -35,6 +37,8 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp)
     app.register_blueprint(blog.bp)
     app.register_blueprint(simple_pages.bp)
+    bootstrap = Bootstrap5(app)
+    app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'flatly'
 
 
     # make url_for('index') == url_for('blog.index')
