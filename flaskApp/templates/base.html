@@ -13,21 +13,35 @@
     </head>
     <body>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-        <nav>
-          <h1><a href="{{ url_for('index') }}">Flaskr</a></h1>
-          <ul>
-            <li><a href="{{ url_for('simple_pages.show', page="about")}}">About</a></li>
-            <li><a href="{{ url_for('simple_pages.show', page="welcome")}}">Welcome</a></li>
 
-              {% if g.user %}
-              <li><span>{{ g.user['username'] }}</span>
-              <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-                  {% else %}
-                  <li><a href="{{ url_for('auth.register') }}">Register</a>
-                  <li><a href="{{ url_for('auth.login') }}">Log In</a>
-              {% endif %}
-          </ul>
+        <!-- Start of Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+            <div class="container-fluid">
+                <div>
+                    <a class="navbar-brand" href="{{ url_for('index') }}">Home</a>
+                </div>
+                <!-- <h1><a href="{{ url_for('index') }}">Flaskr Home</a></h1> -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" href="{{ url_for('simple_pages.show', page="about")}}">About</a>
+                        <a class="nav-link" href="{{ url_for('simple_pages.show', page="welcome")}}">Welcome</a>
+                        {% if g.user %}
+                            <a><span>User: {{ g.user['username'] }}</span></a>
+                            <a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
+                                {% else %}
+                            <a href="{{ url_for('auth.register') }}">Register</a>
+                            <a href="{{ url_for('auth.login') }}">Log In</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </nav>
+
         <section class="content">
             <header>
                 {% block header %}{% endblock %}
