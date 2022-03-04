@@ -1,8 +1,11 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 
 from flaskApp import db, auth, blog, simple_pages
 from flaskApp.context_processors import utility_text_processors
+
+def page_not_found(e):
+  return render_template('404.html'), 404
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
@@ -52,3 +55,8 @@ def create_app(test_config=None):
 
 
 app = create_app()
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
