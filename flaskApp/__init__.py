@@ -1,5 +1,6 @@
 import os
-from flask import Flask, render_template
+from flask import Flask
+from flask import render_template
 
 from flaskApp import db, auth, blog, simple_pages
 from flaskApp.context_processors import utility_text_processors
