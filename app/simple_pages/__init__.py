@@ -25,5 +25,3 @@ def welcome():
         return render_template('welcome.html')
     except TemplateNotFound:
         abort(404)
-
-
