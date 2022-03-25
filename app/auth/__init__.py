@@ -2,9 +2,9 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy.orm import load_only
 from werkzeug.security import generate_password_hash
-from flaskApp.auth.forms import login_form, register_form, profile_form, security_form
-from flaskApp.db import db
-from flaskApp.db.models import User
+from app.auth.forms import login_form, register_form, profile_form, security_form
+from app.db import db
+from app.db.models import User
 
 auth = Blueprint('auth', __name__, template_folder='templates')
 

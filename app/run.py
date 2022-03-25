@@ -1,5 +1,5 @@
 """This allows Gunicorn to serve the app in production"""
 
-from flaskApp import create_app
+from app import create_app
 
-flaskApp = create_app()
+app = create_app()

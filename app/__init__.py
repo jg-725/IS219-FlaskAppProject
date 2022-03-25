@@ -6,14 +6,14 @@ from flask_wtf.csrf import CSRFProtect
 
 import os
 from flask import Flask
-from flaskApp.context_processors import utility_text_processors
-from flaskApp.simple_pages import simple_pages
-from flaskApp.auth import auth
-from flaskApp.exceptions import http_exceptions
-from flaskApp.db.models import User
-from flaskApp.db import db
-from flaskApp.auth import auth
-from flaskApp.cli import create_database
+from app.context_processors import utility_text_processors
+from app.simple_pages import simple_pages
+from app.auth import auth
+from app.exceptions import http_exceptions
+from app.db.models import User
+from app.db import db
+from app.auth import auth
+from app.cli import create_database
 from flask_login import (
     UserMixin,
     login_user,
@@ -41,7 +41,7 @@ def create_app():
     app.register_blueprint(simple_pages)
     app.register_blueprint(auth)
     app.context_processor(utility_text_processors)
-    app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'Simplex'
+    app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'Solar'
     app.register_error_handler(404, page_not_found)
     # app.add_url_rule("/", endpoint="index")
     db_dir = "database/db.sqlite"
