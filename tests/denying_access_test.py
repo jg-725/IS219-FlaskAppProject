@@ -1,1 +1,0 @@
-"""This tests denying access to users NOT logged in """
