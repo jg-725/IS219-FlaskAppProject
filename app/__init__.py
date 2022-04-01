@@ -22,6 +22,7 @@ from flask_login import (
     logout_user,
     login_required,
 )
+import logging
 
 login_manager = LoginManager()
 
@@ -33,6 +34,9 @@ def page_not_found(e):
 def create_app():
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__)
+    logging.basicConfig(filename='logs/record.log', level=logging.DEBUG,
+                        format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
+
     app.secret_key = 'This is an INSECURE secret!! DO NOT use this in production!!'
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
@@ -41,7 +45,7 @@ def create_app():
     app.register_blueprint(simple_pages)
     app.register_blueprint(auth)
     app.context_processor(utility_text_processors)
-    app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'Solar'
+    app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'Vapor'
     app.register_error_handler(404, page_not_found)
     # app.add_url_rule("/", endpoint="index")
     db_dir = "database/db.sqlite"

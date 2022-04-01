@@ -5,8 +5,11 @@ from werkzeug.security import generate_password_hash
 from app.auth.forms import login_form, register_form, profile_form, security_form, user_edit_form
 from app.db import db
 from app.db.models import User
-
+from app.auth.decorators import admin_required
 auth = Blueprint('auth', __name__, template_folder='templates')
+from flask import current_app
+
+
 
 
 @auth.route('/login', methods=['POST', 'GET'])
@@ -23,8 +26,12 @@ def login():
             user.authenticated = True
             db.session.add(user)
             db.session.commit()
+            if user.id == 1:
+                user.is_admin = 1
+                db.session.add(user)
+                db.session.commit()
             login_user(user)
-            flash("Welcome")
+            flash("Welcome", 'success')
             return redirect(url_for('auth.dashboard'))
     return render_template('login.html', form=form)
 
@@ -40,11 +47,15 @@ def register():
             user = User(email=form.email.data, password=generate_password_hash(form.password.data))
             db.session.add(user)
             db.session.commit()
+            if user.id == 1:
+                user.is_admin = 1
+                db.session.add(user)
+                db.session.commit()
             flash('Congratulations, you are now a registered user!', "success")
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.login'), 302)
         else:
             flash('Already Registered')
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.login'), 302)
     return render_template('register.html', form=form)
 
 
@@ -68,7 +79,10 @@ def logout():
 
 @auth.route('/users')
 @login_required
+@admin_required
 def browse_users():
+    current_app.logger.info('Info level log')
+    current_app.logger.warning('Warning level log')
     data = User.query.all()
     titles = [('email', 'Email'), ('registered_on', 'Registered On')]
     retrieve_url = ('auth.retrieve_user', [('user_id', ':id')])
