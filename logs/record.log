@@ -96,4 +96,17 @@
  * Running on http://127.0.0.1:5000
  * Running on http://172.29.0.2:5000 (Press CTRL+C to quit)
 2022-03-29 19:35:24,556 INFO werkzeug MainThread :  * Restarting with stat
-2022-03-29 19:35:34,722 INFO werkzeug Thread-3 : 172.29.0.1 - - [29/Mar/2022 19:35:34] "GET / HTTP/1.1" 200 -
+2022-03-29 19:35:34,722 INFO werkzeug Thread-3 : 172.29.0.1 - - [29/Mar/2022 19:35:34] "GET / HTTP/1.1" 200 -2022-04-01 02:14:18,658 INFO werkzeug MainThread :  * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.21.0.2:5000 (Press CTRL+C to quit)
+2022-04-01 02:14:18,663 INFO werkzeug MainThread :  * Restarting with stat
+2022-04-01 02:14:26,069 INFO werkzeug Thread-4 : 172.21.0.1 - - [01/Apr/2022 02:14:26] "GET / HTTP/1.1" 200 -
+2022-04-01 02:14:26,407 INFO werkzeug Thread-4 : 172.21.0.1 - - [01/Apr/2022 02:14:26] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-04-01 02:14:28,993 INFO werkzeug Thread-4 : 172.21.0.1 - - [01/Apr/2022 02:14:28] "GET / HTTP/1.1" 200 -
+2022-04-01 02:14:29,847 INFO werkzeug Thread-4 : 172.21.0.1 - - [01/Apr/2022 02:14:29] "GET / HTTP/1.1" 200 -
+2022-04-01 02:14:30,228 INFO werkzeug Thread-4 : 172.21.0.1 - - [01/Apr/2022 02:14:30] "GET / HTTP/1.1" 200 -
+2022-04-01 02:14:30,485 INFO werkzeug Thread-4 : 172.21.0.1 - - [01/Apr/2022 02:14:30] "GET / HTTP/1.1" 200 -
+2022-04-01 02:14:30,676 INFO werkzeug Thread-4 : 172.21.0.1 - - [01/Apr/2022 02:14:30] "GET / HTTP/1.1" 200 -
+2022-04-01 02:50:42,419 INFO werkzeug MainThread :  * Detected change in '/home/myuser/app/auth/forms/__init__.py', reloading
+2022-04-01 02:50:42,609 INFO werkzeug MainThread :  * Restarting with stat
