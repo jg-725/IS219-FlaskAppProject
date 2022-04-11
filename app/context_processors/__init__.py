@@ -1,8 +1,10 @@
 from os import getenv
 import datetime
 from app.auth.forms import login_form
+
+
 def utility_text_processors():
-    message = "Hello Everyone!"
+    message = "Hello Everyone, Hope you have a nice day!"
     form = login_form()
 
     def deployment_environment():
