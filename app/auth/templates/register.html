@@ -3,109 +3,181 @@
     {% from 'bootstrap5/form.html' import render_form, render_field, render_form_row %}
 
     <div class="row">
-        <div class="col-7" id="pass_form">
+        <div class="col-6">
             <h2>Register</h2>
             {{ render_form(form) }}
         </div>
+
         <!-- Progress Bar For All Requirements -->
-        <div class="progress col-5" id="progress-message">
-            <!-- Upper Case -->
-            <div id="letter">
-                <div class="progress-bar progress-bar-striped bg-danger" role="progressbar"
-                     style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="col-6" id="p-bar">
+            <h3>Password must meet the following criteria:</h3>
+            <!-- Lower Bar -->
+            <div class="progress" style="height: 30px;">
+                <div id="lower" class="progress-bar progress-bar-striped bg-danger" role="progressbar"
+                     style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                    At least 1 Lowercase Letter
+                </div>
+                <div id="green1" class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                     style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                    Lowercase has been entered!
+                </div>
             </div>
-            <!-- Valid Input -->
-            <div>
-                <div class="progress-bar progress-bar-striped bg-warning" role="progressbar"
-                     style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            <br>
+            <!-- Upper Bar -->
+            <div class="progress" style="height: 30px;">
+                <div id="upper" class="progress-bar progress-bar-striped bg-danger" role="progressbar"
+                     style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                    At least 1 Uppercase Letter
+                </div>
+                <div id="green2" class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                     style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                    Uppercase has been entered!
+                </div>
             </div>
-            <!-- All Requirements Passed -->
-            <div>
-                <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
-                     style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            <br>
+            <!-- Number Bar -->
+            <div class="progress" style="height: 30px;">
+                <div id="number" class="progress-bar progress-bar-striped bg-danger" role="progressbar"
+                     style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                     Contain A Number
+                </div>
+                <div id="green3" class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                     style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                    Number has been entered!
+                </div>
             </div>
-
+            <br>
+            <!-- Length Bar -->
+            <div class="progress" style="height: 30px;">
+                <div id="length" class="progress-bar progress-bar-striped bg-danger" role="progressbar"
+                     style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                    Contain A Minimum of <b>6 Characters</b>
+                </div>
+                <div id="green4" class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                     style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                Password is at least 6 figures!
+                </div>
+            </div>
         </div>
-        <!--
-        <div id="message" class="col-5">
-            <div id="upper" class="red">
-                Upper Case letter
-                <div class="progress">
-                    <div id="p-bar" class="progress-bar" style="width: 0%" role="progressbar"
-                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-            </div>
-            <div id="lower" class="red">
-                Lower case letter
-                <div class="progress">
-                    <div id="p-bar" class="progress-bar" style="width: 25%" role="progressbar"
-                         aria-valuenow="0" aria-valuemin="30" aria-valuemax="100"></div>
-                </div>
-            </div>
-            <div id="number" class="red">
-                Number Value
-                <div class="progress">
-                    <div id="p-bar" class="progress-bar" style="width: 0%" role="progressbar"
-                         aria-valuenow="31" aria-valuemin="60" aria-valuemax="100"></div>
-                </div>
-            </div>
-        </div>
-        -->
-
-
-
-        <!--
-        <div id="pass-valid">
-            <h3>Password must contain the following:</h3>
-            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-            <p id="capital" class="invalid">A <b>capital (Uppercase)</b> letter</p>
-            <p id="number" class="invalid">A <b>number</b></p>
-            <p id="length" class="invalid">Minimum of <b>6 characters</b></p>
-        </div> -->
     </div>
-    <style>
-        .invalid {
-            color: red;
-        }
 
-        .valid {
-            color: green;
+    <style>
+        #p-bar {
+            display: none;
         }
     </style>
 
-
     <script>
-        var passwordField = document.getElementById("password");
-        //var passwordForm = document.getElementById("pass-form");
-        var upper = document.getElementById("upper");
-        var lower = document.getElementById("lower");
-        var number = document.getElementById("number");
+        // Password Form Input
+        var passwordInput = document.getElementById("password");
+
+        // Error Bars
+        var lower_bar = document.getElementById("lower");
+        var upper_bar = document.getElementById("upper");
+        var num_bar = document.getElementById("number");
+        var length_bar = document.getElementById("length");
+
+        // Success Bars
+        var success1 = document.getElementById("green1");
+        var success2 = document.getElementById("green2");
+        var success3 = document.getElementById("green3");
+        var success4 = document.getElementById("green4");
+
+        var passwordArr = [];
+
+        /*
         var lowerCase = 0;
-        var upperCase = 0;
-        var numValue = 0;
+        */
 
-        // Display password req when the user clicks on password field
-        passwordField.onfocus = function() {
-          document.getElementById("pass-valid").style.display = "block";
+        // Display requirements when the user clicks on password field
+        passwordInput.onfocus = function() {
+            var p_bar = document.getElementById("p-bar");
+            p_bar.style.display = "block";
+
+            success1.style.width = "0%";
+            success2.style.width = "0%";
+            success3.style.width = "0%";
+            success4.style.width = "0%";
+
+            lower_bar.style.display = "block";
+            lower_bar.style.border = "1px solid";
+            lower_bar.style.width = "100%";
+
+            upper_bar.style.display = "block";;
+            upper_bar.style.width = "100%";
+
+            num_bar.style.width = "100%";
+
+            length_bar.style.width = "100%";
         }
-        passwordField.onfocus = function () {
-            var message = document.getElementById("message");
-            message.style.display = "block";
-            message.style.border = "3px solid";
+        // Hide requirements message
+        passwordInput.onblur = function() {
+          document.getElementById("p-bar").style.display = "none";
         }
 
+        //User types keyboard
+        passwordInput.onkeyup = function () {
+
+            // Password Array
+            passwordArr.push = passwordInput.value;
+
+            // Lowercase Bar Validation
+            var lowerLetters = /[a-z]/g;
+            if (passwordInput.value.match(lowerLetters)) {
+
+                //upper.classList.remove("invalid");
+                //upper.classList.add("valid");
+                success1.style.width = "100%";
+                lower_bar.style.width = "0%";
+            } else {
+                //lower.classList.remove("valid");
+                //lower.classList.add("invalid");
+                success1.style.width = "0%";
+                lower_bar.style.width = "100%";
+              }
+
+            // Uppercase Bar Validation
+            var upperLetters = /[A-Z]/g;
+            if (passwordInput.value.match(upperLetters)) {
+
+                success2.style.width = "100%";
+                upper_bar.style.width = "0%";
+            } else {
+                success2.style.width = "0%";
+                upper_bar.style.width = "100%";
+              }
+
+            // Number Character Validation
+            var numberValue = /[0-9]/g;
+            if (passwordInput.value.match(numberValue)) {
+
+                success3.style.width = "100%";
+                num_bar.style.width = "0%";
+
+            } else {
+                success3.style.width = "0%";
+                num_bar.style.width = "100%";
+              }
+
+            // Checking for length >= 6
+            if (passwordInput.value.length >= 6) {
+
+                success4.style.width = "100%";
+                length_bar.style.width = "0%";
+            } else {
+                success4.style.width = "0%";
+                length_bar.style.width = "100%";
+            }
+            //const passLength = passwordArr.length;
+            console.log(passwordArr.length);
+            console.log(passwordArr);
+        }
+        /*
         passwordField.onkeyup = function () {
             var progress_bar = document.getElementById("p-bar");
-            // Validate lowercase letters
-            let lowerCaseLetters = /[a-z]/g;
-            // Validate uppercase letters
-            let upperCaseLetters = /[A-Z]/g;
-            // Validate numbers
-            let numValues = /[0-9]/g;
-            let new_width_value;
 
-            //Example 1
-            let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+            let lowerCaseLetters = /[a-z]/g;
+            let new_width_value;
 
             <!-- Lowercase bar  -->
             if(lowerCase === 0) {
@@ -124,27 +196,8 @@
                 progress_bar.style.width = "0%";
                 lowerCase = 0;
             }
-
-            <!-- Uppercase bar  -->
-            if (upperCase === 0) {
-                let p_bar_width_string = progress_bar.style.width;
-                let width_current_value = parseInt(p_bar_width_string.substring(0, p_bar_width_string.length - 1));
-                width_current_value = width_current_value + 33;
-                let width_string_new_value = width_current_value.toString();
-                new_width_value = width_string_new_value.concat("%");
-            } else {
-                new_width_value = progress_bar.style.width;
-            }
-            if (passwordField.value.match(upperCaseLetters)) {
-                progress_bar.style.width = new_width_value;
-                upperCase = 1;
-            } else {
-                progress_bar.style.width = "0%";
-                upperCase = 0;
-            }
         }
-
-
+         */
     </script>
 
 {% endblock %}
