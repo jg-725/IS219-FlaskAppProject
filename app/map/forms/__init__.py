@@ -10,12 +10,12 @@ class create_location_form(FlaskForm):
 
     title = StringField('City Name', description="Add The City Name")
 
-    longitude = IntegerField('Longitude:', [
+    longitude = StringField('Longitude:', [
         validators.DataRequired(),
 
     ], description="Add Longitude Value ")
 
-    latitude = IntegerField('Latitude:', [
+    latitude = StringField('Latitude:', [
         validators.DataRequired(),
 
     ], description="Add Latitude Value ")

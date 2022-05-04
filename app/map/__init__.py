@@ -35,7 +35,7 @@ def browse_locations(page):
     except TemplateNotFound:
         abort(404)
 
-@map.route('/locations/new', methods=['POST', 'GET'])
+@map.route('/locations/new', methods=['GET', 'POST'])
 @login_required
 def add_locations():
     form = create_location_form()
@@ -47,7 +47,7 @@ def add_locations():
             db.session.add(location)
             db.session.commit()
             flash('Congratulations, you added a new location', 'success')
-            return redirect(url_for('map.browse_locations'))
+            return redirect(url_for('map.browse_locations_datatables'))
         else:
             flash('Location Already Exists')
             return redirect(url_for('map.browse_locations'))
