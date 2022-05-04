@@ -68,7 +68,7 @@ class User(UserMixin, db.Model):
     registered_on = db.Column('registered_on', db.DateTime)
     active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
     is_admin = db.Column('is_admin', db.Boolean(), nullable=False, server_default='0')
-    #songs = db.relationship("Song", back_populates="user", cascade="all, delete")
+
     locations = db.relationship("Location",
                     secondary=location_user, backref="users")
     songs = db.relationship("Song",
