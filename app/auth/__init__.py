@@ -85,7 +85,7 @@ def logout():
 @login_required
 def dashboard(page):
     page = page
-    per_page = 1000
+    per_page = 5
     #pagination = Location.query.filter_by(users=current_user.id).paginate(page, per_page, error_out=False)
     #pagination = Location.query.all(users=current_user.id).paginate(page, per_page, error_out=False)
 

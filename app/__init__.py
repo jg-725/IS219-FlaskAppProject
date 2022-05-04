@@ -15,6 +15,7 @@ from app.context_processors import utility_text_processors
 from app.db import database
 from app.db import db
 from app.db.models import User
+from app.db.models import Location
 from app.error_handlers import error_handlers
 from app.logging_config import log_con, LOGGING_CONFIG
 from app.map import map
@@ -35,6 +36,7 @@ def create_app():
         app.config.from_object("app.config.DevelopmentConfig")
     elif os.environ.get("FLASK_ENV") == "testing":
         app.config.from_object("app.config.TestingConfig")
+        app.config['WTF_CSRF_ENABLED'] = False
     app.mail = Mail(app)
 
     # https://flask-login.readthedocs.io/en/latest/  <-login manager

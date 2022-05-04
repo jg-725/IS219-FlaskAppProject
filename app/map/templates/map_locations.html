@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 <style>
     #map {
-        border: 1px solid;
+        border: 3px solid;
     }
 
 </style>
@@ -16,10 +16,7 @@
         </div>
         <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-        <script
-                src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initMap&v=weekly" defer>
-
-        </script>
+        <script defer src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initMap&v=weekly"></script>
 
         <script type=text/javascript>
             let map;
