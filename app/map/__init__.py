@@ -22,7 +22,7 @@ map = Blueprint('map', __name__,
 @login_required
 def browse_locations(page):
     page = page
-    per_page = 5
+    per_page = 8
     pagination = Location.query.paginate(page, per_page, error_out=False)
     items = pagination.items
 
@@ -53,6 +53,17 @@ def add_locations():
             return redirect(url_for('map.browse_locations'))
 
     return render_template('location_new.html', form=form)
+
+
+@map.route('/locations/<int:page>/delete', methods=['POST'])
+@login_required
+def delete_location():
+    data = Location.query.all()
+
+    db.session.delete(data)
+    db.session.commit()
+    flash('Your Location Has Been Deleted', 'success')
+    return redirect(url_for('map.browse_locations_datatables'))
 
 
 @map.route('/locations/<int:page>')
