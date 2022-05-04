@@ -10,7 +10,7 @@ from jinja2 import TemplateNotFound
 from app.db import db
 from app.db.models import Location
 from app.songs.forms import csv_upload
-from app.map.forms import create_location_form
+from app.map.forms import create_location_form, edit_location_form
 from werkzeug.utils import secure_filename, redirect
 from flask import Response
 
@@ -22,21 +22,41 @@ map = Blueprint('map', __name__,
 @login_required
 def browse_locations(page):
     page = page
-    per_page = 8
+    per_page = 10
     pagination = Location.query.paginate(page, per_page, error_out=False)
     items = pagination.items
 
-    # browse locations data
+    # Displaying the Cities
     data = Location.query.all()
-    titles = [('location', 'Location'), ('registered_on', 'Registered On')]
+    titles = [('id', '#'), ('title', 'City'), ('longitude', 'Longitude'), ('latitude', 'Latitude'),
+              ('population', 'Population')]
+
+    # Adding Edit Buttons to locations data
+    edit_url = ('map.edit_locations', [('location_id', ':id')])
     add_url = url_for('map.add_locations')
     delete_url = ('map.delete_locations', [('location_id', ':id')])
 
     try:
-        return render_template('browse_locations.html', titles=titles, add_url=add_url, delete_url=delete_url,
-                               items=items, data=data, pagination=pagination, Location=Location, record_type="Location")
+        return render_template('browse_locations.html', titles=titles, add_url=add_url, edit_url=edit_url, delete_url=delete_url,
+                               items=items, pagination=pagination, data=data, Location=Location, record_type="Location")
     except TemplateNotFound:
         abort(404)
+
+
+@map.route('/locations/<int:location_id>/edit', methods=['POST', 'GET'])
+@login_required
+def edit_locations(location_id):
+    location = Location.query.get(location_id)
+    form = edit_location_form(obj=location)
+    if form.validate_on_submit():
+        location = form.data
+        db.session.add(location)
+        db.session.commit()
+        flash('You Edited The Location Successfully', 'success')
+        current_app.logger.info("Edited A Location")
+        return redirect(url_for('map.browse_locations'))
+    return render_template('location_edit.html', form=form)
+
 
 @map.route('/locations/new', methods=['GET', 'POST'])
 @login_required
