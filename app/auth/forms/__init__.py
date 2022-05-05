@@ -64,12 +64,12 @@ class security_form(FlaskForm):
 
     ], description="You can change your email address")
 
-    password = PasswordField('Create Password', [
+    password = PasswordField('Create A New Password', [
         validators.DataRequired(),
         validators.EqualTo('confirm', message='Passwords must match'),
 
     ], description="Create a password ")
-    confirm = PasswordField('Repeat Password', description="Please retype your password to confirm it is correct")
+    confirm = PasswordField('Re-Enter New Password', description="Please retype your password to confirm it is correct")
 
     submit = SubmitField()
 

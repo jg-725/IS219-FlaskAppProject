@@ -115,6 +115,7 @@ def edit_profile():
 
 
 @auth.route('/account', methods=['POST', 'GET'])
+@login_required
 def edit_account():
     user = User.query.get(current_user.get_id())
     form = security_form(obj=user)
